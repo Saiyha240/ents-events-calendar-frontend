@@ -1,0 +1,52 @@
+.brand {
+  width: 180px;
+  height: 70px;
+  overflow: hidden;
+  margin: 0 auto;
+  margin: 40px auto;
+
+  img {
+    width: 100%;
+  }
+}
+
+.card-wrapper {
+  width: 400px;
+  margin: 0 auto;
+}
+
+.card {
+  border-color: transparent;
+  box-shadow: 0 0 40px rgba(0, 0, 0, .05);
+}
+
+.card.fat {
+  padding: 10px;
+}
+
+.card .card-title {
+  margin-bottom: 30px;
+}
+
+.footer {
+  margin: 40px 0;
+  color: #fff;
+  text-align: center;
+}
+
+@media screen and (max-width: 425px) {
+  .card-wrapper {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .card.fat {
+    padding: 0;
+  }
+
+  .card.fat .card-body {
+    padding: 15px;
+  }
+}
