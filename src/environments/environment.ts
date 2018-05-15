@@ -3,7 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  company: {
+    shortName: 'ENTS',
+    fullName: 'Every Nation Japan',
+    displayName: 'Every Nation Japan',
+  }
 };
 
 /*
