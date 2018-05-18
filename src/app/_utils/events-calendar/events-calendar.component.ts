@@ -12,12 +12,12 @@ interface Film {
 }
 
 @Component({
-  selector: 'app-ents-calendar',
-  templateUrl: './ents-calendar.component.html',
-  styleUrls: ['./ents-calendar.component.scss'],
+  selector: 'app-events-calendar',
+  templateUrl: './events-calendar.component.html',
+  styleUrls: ['./events-calendar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EntsCalendarComponent implements OnInit {
+export class EventsCalendarComponent implements OnInit {
 
   view = 'month';
 

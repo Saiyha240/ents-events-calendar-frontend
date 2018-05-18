@@ -7,15 +7,18 @@ import {HomeLayoutComponent} from './layouts/home-layout/home-layout.component';
 import {LoginLayoutComponent} from './layouts/login-layout/login-layout.component';
 import {AuthComponent} from './auth/auth.component';
 import {AuthModule} from './auth/auth.module';
-import {EntsCalendarComponent} from './ents-calendar/ents-calendar.component';
-import {EntsCalendarModule} from './ents-calendar/ents-calendar.module';
 import {CalendarModule} from 'angular-calendar';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {CalendarHeaderComponent} from './_utils/calendar-header/calendar-header.component';
 import {NavbarComponent} from './layouts/home-layout/navbar/navbar.component';
 import {AuthServiceConfig, FacebookLoginProvider, SocialLoginModule} from 'angular5-social-login';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
+import {HomeModule} from './home/home.module';
+import {ApiInterceptor} from './_helpers/api.interceptor';
+import {AuthenticationService} from './_services/authentication.service';
+import {JwtModule} from '@auth0/angular-jwt';
+import {fakeBackendProvider} from './_helpers/fake-backend';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 export function getAuthServiceConfigs() {
   const config = new AuthServiceConfig(
@@ -28,30 +31,42 @@ export function getAuthServiceConfigs() {
   return config;
 }
 
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeLayoutComponent,
     LoginLayoutComponent,
-    EntsCalendarComponent,
     AuthComponent,
-    EntsCalendarComponent,
-    CalendarHeaderComponent,
     NavbarComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AngularFontAwesomeModule,
     HttpClientModule,
+    NgbModule.forRoot(),
+    AngularFontAwesomeModule,
     SocialLoginModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:4200'],
+        blacklistedRoutes: ['localhost:4200/auth/']
+      }
+    }),
     CalendarModule.forRoot(),
     AuthModule,
-    EntsCalendarModule,
+    HomeModule,
     AppRoutingModule
   ],
   providers: [
-    {provide: AuthServiceConfig, useFactory: getAuthServiceConfigs}
+    AuthenticationService,
+    {provide: AuthServiceConfig, useFactory: getAuthServiceConfigs},
+    {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},
+    fakeBackendProvider
   ],
   bootstrap: [AppComponent]
 })

@@ -4,7 +4,7 @@ import {LoginLayoutComponent} from '../layouts/login-layout/login-layout.compone
 import {LoginComponent} from './login/login.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/auth/login', pathMatch: 'full'},
+  // {path: '', redirectTo: '/auth/login', pathMatch: 'full'},
   {
     path: 'auth',
     component: LoginLayoutComponent,
